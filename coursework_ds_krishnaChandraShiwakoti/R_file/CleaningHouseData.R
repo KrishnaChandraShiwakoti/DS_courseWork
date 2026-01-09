@@ -95,5 +95,31 @@ houseColsNames = c(
    mutate(postcode = clean_postcode(postcode))
  
  
-
+ remove_invalid_house_prices <- function(df) {
+   df %>%
+     filter(!is.na(postcode)) %>%        # postcode required for joins
+     filter(!is.na(price), price > 0) %>%
+     filter(!is.na(transfer_date))
+ }
+ 
+ housePrices2022 <- remove_invalid_house_prices(housePrices2022)
+ housePrices2023 <- remove_invalid_house_prices(housePrices2023)
+ housePrices2024 <- remove_invalid_house_prices(housePrices2024)
+ 
+ write_csv(
+   housePrices2022,
+   ".\\coursework_ds_krishnaChandraShiwakoti\\cleanedData\\cleaned_house_prices_2022.csv"
+ )
+ 
+ write_csv(
+   housePrices2023,
+   ".\\coursework_ds_krishnaChandraShiwakoti\\cleanedData\\cleaned_house_prices_2023.csv"
+ )
+ 
+ write_csv(
+   housePrices2024,
+   ".\\coursework_ds_krishnaChandraShiwakoti\\cleanedData\\cleaned_house_prices_2024.csv"
+ )
+ 
+ 
  
